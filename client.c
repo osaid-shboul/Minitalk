@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oalshbou <oalshbou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oalshbou <oalshbou@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:52:52 by oalshbou          #+#    #+#             */
-/*   Updated: 2026/02/02 17:53:30 by oalshbou         ###   ########.fr       */
+/*   Updated: 2026/02/03 12:02:56 by oalshbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,27 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	send_bits(int pid, char c)
+void send_bits(int pid, char c)
 {
-	int	bit;
+    int bit;
+    int signal;
 
-	bit = 7;
-	while (bit >= 0)
-	{
-		if ((c >> bit) & 1)
-			kill(pid, SIGUSR2);
-		else
-			kill(pid, SIGUSR1);
-		usleep(1000);
-		bit--;
-	}
+    bit = 7;
+    while (bit >= 0)
+    {
+        if ((c >> bit) & 1)
+            signal = SIGUSR2;
+        else
+            signal = SIGUSR1;
+        if (kill(pid, signal) == -1)
+        {
+            write(2, "Error: PID not found or signal failed.\n", 39);
+            exit(1);
+        }
+        
+        usleep();
+        bit--;
+    }
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: oalshbou <oalshbou@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:52:52 by oalshbou          #+#    #+#             */
-/*   Updated: 2026/02/03 12:02:56 by oalshbou         ###   ########.fr       */
+/*   Updated: 2026/02/03 12:16:38 by oalshbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void send_bits(int pid, char c)
             exit(1);
         }
         
-        usleep();
+        usleep(1000);
         bit--;
     }
 }
